@@ -120,8 +120,7 @@ class CustomChart:  # noqa: H601
 
     @axis_range.setter
     def axis_range(self, axis_range):
-        errors = validate(axis_range, self._axis_range_schema)
-        if errors:
+        if errors := validate(axis_range, self._axis_range_schema):
             raise RuntimeError(f'Validation of self.axis_range failed: {errors}')
         # Assign new axis_range
         self._axis_range = axis_range

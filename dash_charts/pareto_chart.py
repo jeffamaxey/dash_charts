@@ -68,8 +68,7 @@ class ParetoChart(CustomChart):
 
     @pareto_colors.setter
     def pareto_colors(self, pareto_colors):
-        errors = validate(pareto_colors, self._pareto_colors_schema)
-        if errors:
+        if errors := validate(pareto_colors, self._pareto_colors_schema):
             raise RuntimeError(f'Validation of self.pareto_colors failed: {errors}')
         # Assign new pareto_colors
         self._pareto_colors = pareto_colors

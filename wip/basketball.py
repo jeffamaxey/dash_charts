@@ -191,7 +191,11 @@ freq_by_hex = np.array([min(max_freq, i) for i in league_hexbin_stats['freq_by_h
 colorscale = 'YlOrRd'
 marker_c_min = 0.1
 marker_c_max = 0.6
-ticktexts = [str(marker_c_min * 100) + '%-', '', str(marker_c_max * 100) + '%+']
+ticktexts = [
+    f'{str(marker_c_min * 100)}%-',
+    '',
+    f'{str(marker_c_max * 100)}%+',
+]
 
 
 def filter_hexbins(hexbin_stats, min_threshold=0.0):
@@ -213,8 +217,7 @@ accs_by_hex = filter_league_hexbin_stats['accs_by_hex']
 freq_by_hex = np.array([min(max_freq, i) for i in filter_league_hexbin_stats['freq_by_hex']])
 
 hexbin_text = [
-    '<i>Accuracy: </i>' + str(round(accs_by_hex[i] * 100, 1)) + '%<BR>'
-    '<i>Frequency: </i>' + str(round(freq_by_hex[i] * 100, 2)) + '%'
+    f'<i>Accuracy: </i>{str(round(accs_by_hex[i] * 100, 1))}%<BR><i>Frequency: </i>{str(round(freq_by_hex[i] * 100, 2))}%'
     for i in range(len(freq_by_hex))
 ]
 
@@ -275,21 +278,20 @@ ylocs = rel_hexbin_stats['ylocs']
 accs_by_hex = rel_hexbin_stats['accs_by_hex']
 freq_by_hex = np.array([min(max_freq, i) for i in rel_hexbin_stats['freq_by_hex']])
 
-colorscale = 'RdYlBu_r'
 marker_c_min = -0.05
 marker_c_max = 0.05
-title_txt = teamname + ":<BR>Shot chart, '18-'19<BR>(vs NBA average)"
+title_txt = f"{teamname}:<BR>Shot chart, '18-'19<BR>(vs NBA average)"
 
 hexbin_text = [
-    '<i>Accuracy: </i>' + str(round(accs_by_hex[i] * 100, 1)) + '% (vs league avg)<BR>'
-    '<i>Frequency: </i>' + str(round(freq_by_hex[i] * 100, 2)) + '%'
+    f'<i>Accuracy: </i>{str(round(accs_by_hex[i] * 100, 1))}% (vs league avg)<BR><i>Frequency: </i>{str(round(freq_by_hex[i] * 100, 2))}%'
     for i in range(len(freq_by_hex))
 ]
 ticktexts = ['Worse', 'Average', 'Better']
-logo_url = 'https://d2p3bygnnzw9w3.cloudfront.net/req/202001161/tlogo/bbr/' + teamname + '.png'
+logo_url = f'https://d2p3bygnnzw9w3.cloudfront.net/req/202001161/tlogo/bbr/{teamname}.png'
 
 fig = go.Figure()
 draw_plotly_court(fig, fig_width=600)
+colorscale = 'RdYlBu_r'
 fig.add_trace(
     go.Scatter(
         x=xlocs, y=ylocs, mode='markers', name='markers',
